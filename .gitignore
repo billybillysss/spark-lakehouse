@@ -1,0 +1,7 @@
+scratch.ipynb
+minio/s3/lakehosue/*
+minio/s3/raw
+minio/s3/spark
+notebooks
+minio/s3/.minio.sys
+postgres/data/*

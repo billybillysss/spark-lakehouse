@@ -1,0 +1,79 @@
+<configuration>
+    <property>
+        <name>metastore.thrift.uris</name>
+        <value>thrift://metastore:9083</value>
+    </property>
+
+    <property>
+        <name>metastore.expression.proxy</name>
+        <value>org.apache.hadoop.hive.metastore.DefaultPartitionExpressionProxy</value>
+    </property>
+
+    <property>
+        <name>hive.metastore.event.db.notification.api.auth</name>
+        <value>false</value>
+    </property>
+
+    <property>
+        <name>metastore.warehouse.dir</name>
+        <value>s3a://lakehouse/</value>
+    </property>
+
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.postgresql.Driver</value>
+    </property>
+
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:postgresql://postgres:5432/metastore_db</value>
+    </property>
+
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>admin</value>
+    </property>
+
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>admin</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.access.key</name>
+        <value>s3admin</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.secret.key</name>
+        <value>s3admin_password</value>
+    </property>
+
+    <property>
+        <name>fs.s3a.endpoint</name>
+        <value>http://minio:9000</value>
+    </property>
+    
+    <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+    </property>
+    
+    <property>
+        <name>hive.stats.jdbc.timeout</name>
+        <value>30</value>
+        <description>Timeout for JDBC connection for collecting statistics</description>
+    </property>
+
+    <property>
+        <name>hive.stats.retries.wait</name>
+        <value>3000</value>
+        <description>Wait time between retries for statistics collection</description>
+    </property>
+
+    <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>true</value>
+        <description>Enables metastore schema version verification. Helps in maintaining compatibility.</description>
+    </property>
+</configuration>
