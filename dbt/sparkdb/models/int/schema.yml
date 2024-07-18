@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: trip_date
+    description: "trip date"
+    columns:
+      - name: date
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: trip_location
+    description: "trip location"
+    columns:
+      - name: location_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: taxi_vendor
+    description: "trip date"
+    columns:
+      - name: vendor_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+  - name: daily_trip_summary
+    description: "daily trip summary"
+    columns:
+      - name: trip_date
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+  - name: monthly_trip_summary
+    description: "monthly trip summary"
+    columns:
+      - name: trip_month
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null

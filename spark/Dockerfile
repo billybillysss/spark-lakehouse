@@ -33,6 +33,8 @@ RUN apt-get update -y && \
     openjdk-8-jdk \
     bash \
     unzip \
+    s3fs \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Set JAVA_HOME
@@ -40,6 +42,10 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH=$PATH:$JAVA_HOME/bin
 RUN echo $JAVA_HOME
 
+#Install yq
+RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&\
+    chmod +x /usr/bin/yq
+    
 # Install Apache Livy
 RUN wget -q $(wget -qO- https://www.apache.org/dyn/closer.lua/incubator/livy/${APACHE_LIVY_VERSION}-incubating/apache-livy-${APACHE_LIVY_VERSION}-incubating_${SCALA_VERSION}-bin.zip\?as_json | \
     python -c "import sys, json; content=json.load(sys.stdin); print(content['preferred']+content['path_info'])") && \
@@ -91,10 +97,15 @@ RUN useradd -m -s /bin/bash sparker && \
 RUN chown -R sparker:sparker /opt && \
     chmod -R 775 /opt
 
-WORKDIR /home/sparker
+RUN chown -R sparker:sparker /mnt
+RUN usermod -aG sudo sparker && \
+    echo "sparker ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/sparker && \
+    chmod 0440 /etc/sudoers.d/sparker
 
 USER sparker
+WORKDIR /home/sparker
 
+ADD conf/.passwd-s3fs /home/sparker/.passwd-s3fs
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]

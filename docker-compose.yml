@@ -25,6 +25,7 @@ services:
       - ./spark/conf/livy.conf:/opt/livy/conf/livy.conf
       # - ./spark/conf/spark-blacklist.conf:/opt/livy/spark-blacklist.conf
       - ./spark/conf/hive-site.xml:/opt/spark/conf/hive-site.xml
+      - ./spark/conf/mount-conf.yml:/mnt/mount-conf.yml
     ports:
       - 4040:4040
       - 7077:7077
@@ -32,6 +33,7 @@ services:
       - 18080:18080
       - 8998:8998
       - 15002:15002
+    privileged: true
     networks:
       - shared_network
   worker:
@@ -84,8 +86,13 @@ services:
       POSTGRES_DB: metastore_db
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init_db/init-airflow-db.sql:/docker-entrypoint-initdb.d/init-airflow-db.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d metastore_db"]
+      # test: ["CMD-SHELL", "pg_isready -U admin -d metastore_db"]
+      test: 
+        - CMD-SHELL
+        - pg_isready -U admin -d metastore_db && 
+          pg_isready -U airflow -d airflow
       interval: 1s
       timeout: 10s
       retries: 10

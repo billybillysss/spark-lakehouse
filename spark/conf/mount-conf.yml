@@ -1,0 +1,13 @@
+default_minio_url: "http://minio:9000"
+default_passwd_file: "/home/sparker/.passwd-s3fs"
+
+buckets:
+  - name: "raw"
+    mount_point: "/mnt/raw"
+    # Optionally override defaults:
+    # minio_url: "http://custom-minio:9000"
+    # passwd_file: "/custom/path/.passwd-s3fs"
+    # debug_level: "debug"
+
+  - name: "landing"
+    mount_point: "/mnt/landing"

@@ -1,0 +1,13 @@
+
+version: 2
+
+models:
+  - name: stg_wx_hist
+    description: "hourly weather data"
+    columns:
+      - name: date
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
